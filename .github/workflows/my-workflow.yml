@@ -27,11 +27,3 @@ jobs:
 
       - name: Training Survival Model
         run: python models/train_survival_model.py
-
-      - name: Committing Encoders and Scalers
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add .
-          git commit -m 'Retrained Models'
-          git push

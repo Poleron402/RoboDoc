@@ -1,9 +1,4 @@
 
-# %% [markdown]
-# ### Library imports
-
-# %%
-
 # -*- coding: utf-8 -*-
 import pandas as pd
 import numpy as np
@@ -35,21 +30,10 @@ nltk.download('averaged_perceptron_tagger')
 nltk.download('omw-1.4')
 nltk.download('punkt_tab')
 
-# %% [markdown]
-# ### Streamlit sidebar navigation
 
-# %%
-# # st.sidebar.title("Navigation")
-# app_mode = st.sidebar.radio("Select App", ["Medical Chatbot", "Biomarker Analysis"])
-
-# %% [markdown]
-# ### Import data into frame
 
 # %%
 df = pd.read_csv('train_data2.csv')
-
-# %% [markdown]
-# ### Remove unwanted prefixes in description column
 
 # %%
 df['Description'] = df['Description'].str.replace(r'^Description:\s*', '', regex=True)
@@ -159,28 +143,17 @@ grid = GridSearchCV(lr, param_grid, cv=5, scoring='accuracy')
 grid.fit(X_train_tfidf, y_train)
 best_lr = grid.best_estimator_
 
-# %% [markdown]
-# ### Evaluate on the test set.
-# 
 
 # %%
 y_pred = best_lr.predict(X_test_tfidf)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Revised Classical Model Accuracy: {accuracy * 100:.2f}%")
 
-# %% [markdown]
-# # --- Chatbot Integration and UI ---
-
-# %% [markdown]
-# ### Load spaCy model for NER (for medical NER, consider using a specialized model like scispaCy)
-# 
 
 # %%
 import en_core_web_sm
 nlp = en_core_web_sm.load()
 
-# %% [markdown]
-# ### Hybrid Named Entity Recognition function to extract symptom/disease mentions
 
 # %%
 def extract_entities(text):
@@ -196,9 +169,6 @@ def extract_entities(text):
     # Combine both methods
     all_symptoms = set(spacy_symptoms + rule_based_symptoms)
     return ", ".join(all_symptoms) if all_symptoms else "No symptoms detected"
-
-# %% [markdown]
-# ### Streamlit UI for Medical Chatbot
 
 # %%
 def chatbot():
