@@ -1,0 +1,36 @@
+name: Retrain Models
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow-dispatch:
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Dependencies
+        uses: actions/checkout@v4
+        run: pip install -r requirements.txt
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Training Blood Samples Model
+        run: python models/train_models.py
+
+      - name: Training Survival Model
+        run: python models/train_survival_model.py
+
+      - name: Committing Encoders and Scalers
+        run:
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .
+          git commit -m 'Retrained Models'
+          git push
