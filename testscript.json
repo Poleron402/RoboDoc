@@ -1,0 +1,47 @@
+# %% [markdown]
+# ## RoboDoc Data Analysis & Exploration
+# by R. Siddiq, S. Scire, F. Marquez Murrieta, P. Mejia
+# The main dataset used for the project's biomarkers section (https://www.kaggle.com/datasets/ehababoelnaga/multiple-disease-prediction/data)
+
+# %%
+#libraries and loading the dataset
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import streamlit as st #for web view of the project
+import plotly.express as px #for interactive graphs
+
+df = pd.read_csv('C:\school\Project\Blood_samples_dataset_balanced_2.csv')
+
+# %% [markdown]
+# ### Exploration
+# 
+
+# %%
+pd.set_option("display.max_columns", None)
+df.shape
+
+# %%
+df.head()
+
+# %%
+drop_disease = df.drop('Disease', axis=1)
+corr = drop_disease.corr()
+matrix = np.triu(corr)
+sns.heatmap(corr, mask=matrix)
+plt.title('Correlational Heatmap of Blood Samples')
+plt.show()
+
+# %%
+
+sns.pairplot(data=df, vars=['HDL Cholesterol', 'C-reactive Protein', 'Troponin'], kind='reg')
+
+# %%
+df.columns
+
+# %%
+sns.pairplot(data=df, vars=['Systolic Blood Pressure', 'Diastolic Blood Pressure', 'BMI'], kind='reg')
+
+
