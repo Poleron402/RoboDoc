@@ -131,7 +131,8 @@ def normalized_data():
     model_map = {
         "Random Forest": rf_model,
         "Naive Bayes": nb_model,
-        "Logistic Regression": lr_model
+        "Logistic Regression": lr_model,
+        "Decision Tree": dt_model
     }
 
     if st.button("Analyze Markers"):
@@ -158,7 +159,8 @@ def raw_data():
     model_map = {
         "Random Forest": rf_model,
         "Naive Bayes": nb_model,
-        "Logistic Regression": lr_model
+        "Logistic Regression": lr_model, 
+        "Decision Tree": dt_model
     }
     if st.button("Analyze Markers "):
         selected_model = model_map[model_choice]
